@@ -16,15 +16,17 @@ class AdminUserSeed extends Seeder
     public function run(): void
     {
         //
-        $adminRole = Role::create(['name' => 'Administrator']);
+        $adminRole = Role::create(['name' => 'admin']);
+        $userRole = Role::create(['name' => 'user']);
         $permission = Permission::create(['name' => 'manage tasks']);
         $permission->assignRole($adminRole);
+        $permission->assignRole($userRole);
 
         $adminUser = User::factory()->create([
             'email' => 'admin@admin.com',
             'password' => bcrypt('SecurePassword'),
             'cel'=>'(00) 00000-0000',
         ]);
-        $adminUser->assignRole('Administrator');
+        $adminUser->assignRole('admin');
     }
 }
