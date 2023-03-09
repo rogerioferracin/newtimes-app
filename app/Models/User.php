@@ -25,6 +25,11 @@ class User extends Authenticatable
         'cel',
     ];
 
+    public function getRole(User $user)
+    {
+        return $user->roles()->pluck('name')[0];
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

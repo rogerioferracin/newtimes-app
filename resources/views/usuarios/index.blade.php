@@ -16,6 +16,7 @@
                             <th scope="col" class="px-6 py-4">Nome</th>
                             <th scope="col" class="px-6 py-4">Cel</th>
                             <th scope="col" class="px-6 py-4">Email</th>
+                            <th scope="col" class="px-6 py-4">Função</th>
                             <th scope="col" class="px-6 py-4">-</th>
                         </tr>
                     </thead>
@@ -26,6 +27,7 @@
                             <td class="whitespace-nowrap px-6 py-4">{{ $u->name }}</td>
                             <td class="whitespace-nowrap px-6 py-4">{{ $u->cel }}</td>
                             <td class="whitespace-nowrap px-6 py-4">{{ $u->email }}</td>
+                            <td class="whitespace-nowrap px-6 py-4">{{ $u->getRole($u) }}</td>
                             <td class="whitespace-nowrap px-6 py-4">
                                 <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     <i class="fa-solid fa-pen"></i>
