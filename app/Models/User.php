@@ -25,6 +25,9 @@ class User extends Authenticatable
         'cel',
     ];
 
+    /**
+     * Get Role from user
+     */
     public function getRole(User $user)
     {
         return $user->roles()->pluck('name')[0];

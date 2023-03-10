@@ -21,22 +21,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($usuarios as $u)
+                        @foreach ($usuarios as $usuario)
                         <tr class="border-b dark:border-neutral-500">
-                            <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $u->id }}</td>
-                            <td class="whitespace-nowrap px-6 py-4">{{ $u->name }}</td>
-                            <td class="whitespace-nowrap px-6 py-4">{{ $u->cel }}</td>
-                            <td class="whitespace-nowrap px-6 py-4">{{ $u->email }}</td>
-                            <td class="whitespace-nowrap px-6 py-4">{{ $u->getRole($u) }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $usuario->id }}</td>
+                            <td class="whitespace-nowrap px-6 py-4">{{ $usuario->name }}</td>
+                            <td class="whitespace-nowrap px-6 py-4">{{ $usuario->cel }}</td>
+                            <td class="whitespace-nowrap px-6 py-4">{{ $usuario->email }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 uppercase">{{ $usuario->getRole($usuario) }}</td>
                             <td class="whitespace-nowrap px-6 py-4">
-                                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <x-link  data-te-toggle="tooltip" title="Edita usuário" href="{{ route('usuarios.edit', $usuario)}}" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     <i class="fa-solid fa-pen"></i>
                                     <span class="sr-only">Icon description</span>
-                                </button>
-                                <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                    <i class="fa-solid fa-trash"></i>
-                                    <span class="sr-only">Icon description</span>
-                                </button>
+                                </x-link>
+                                <form method="POST" action="{{ route('usuarios.destroy', $usuario) }}" class="inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <x-danger-button
+                                    data-te-toggle="tooltip" title="Exclui usuário"
+                                    type="submit"
+                                    onclick="return confirm('Are you sure?')">
+                                        <i class="fa-solid fa-trash"></i>
+                                        <i class="sr-only">Delete</i>
+                                    </x-danger-button>
+                                </form>
+                                <x-primary-button
+                                        x-data=""
+                                        x-on:click.prevent="$dispatch('open-modal', 'change-password')"
+                                        data-te-toggle="tooltip"
+                                        title="Altera senha">
+                                    <i class="fa-solid fa-key"></i>
+                                    <i class="sr-only">Altera senha</i>
+                                </x-primary-button>
+                                {{-- ADD MODAL --}}
+                                <x-modal name="change-password">
+                                    @include('usuarios.partials.update-password')
+                                </x-modal>
                             </td>
                         </tr>
                         @endforeach
